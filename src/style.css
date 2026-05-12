@@ -1,0 +1,25 @@
+@import 'tailwindcss';
+
+/* Paleta alineada al logo BarrioVisible */
+@theme {
+  --color-brand-navy: #103058;
+  --color-brand-teal: #1b99a7;
+  --color-brand-green: #66bb46;
+  --color-brand-yellow: #f9c22e;
+  --color-brand-surface: #f0f5f7;
+}
+
+@keyframes home-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-fade-up {
+  animation: home-fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
