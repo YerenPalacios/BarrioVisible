@@ -34,6 +34,27 @@ export const useProblematicasStore = defineStore('problematicas', () => {
     return reportes.value.find((r) => r.id === id) ?? null
   }
 
+  function actualizarReporte(
+    id: string,
+    patch: Partial<Pick<ReporteProblematica, 'titulo' | 'estado' | 'prioridad'>>,
+  ): boolean {
+    const idx = reportes.value.findIndex((r) => r.id === id)
+    if (idx === -1) return false
+
+    reportes.value[idx] = {
+      ...reportes.value[idx],
+      ...patch,
+    }
+
+    return true
+  }
+
+  function eliminarReporte(id: string): boolean {
+    const prevLength = reportes.value.length
+    reportes.value = reportes.value.filter((r) => r.id !== id)
+    return reportes.value.length !== prevLength
+  }
+
   function reportesPorCategoria(categoria: CategoriaProblematica): ReporteProblematica[] {
     return reportes.value.filter((r) => r.categoria === categoria)
   }
@@ -164,6 +185,8 @@ export const useProblematicasStore = defineStore('problematicas', () => {
     reportesPorPrioridad,
     buscarTexto,
     ordenadosPorFecha,
+    actualizarReporte,
+    eliminarReporte,
     reiniciarMock,
   }
 })

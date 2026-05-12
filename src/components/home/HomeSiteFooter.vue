@@ -56,11 +56,11 @@
           <li>
             <a
               class="text-brand-teal hover:text-brand-navy"
-              href="https://github.com"
+              href="https://github.com/YerenPalacios/BarrioVisible/"
               rel="noopener noreferrer"
               target="_blank"
             >
-              GitHub (mock)
+              GitHub
             </a>
           </li>
           <li>
