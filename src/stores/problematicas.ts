@@ -46,6 +46,7 @@ export const useProblematicasStore = defineStore('problematicas', () => {
   }
 
   async function cargarReportes(): Promise<void> {
+    console.log('cargarReportes')
     if (initialized.value && !error.value) return
 
     loading.value = true
