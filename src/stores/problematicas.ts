@@ -2,6 +2,14 @@ import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 import { MOCK_REPORTES_PROBLEMATICAS } from '@/mock/problematicasData'
+import { isSupabaseConfigured } from '@/lib/supabase'
+import { withGeneratedId } from '@/services/problematicasMappers'
+import {
+  deleteReporte as deleteReporteApi,
+  fetchReportes as fetchReportesApi,
+  replaceAllReportes,
+  updateReporte as updateReporteApi,
+} from '@/services/problematicasApi'
 import type {
   CategoriaProblematica,
   EstadoReporte,
@@ -10,11 +18,14 @@ import type {
 } from '@/types/problematica'
 
 function cloneReportes(): ReporteProblematica[] {
-  return structuredClone(MOCK_REPORTES_PROBLEMATICAS)
+  return MOCK_REPORTES_PROBLEMATICAS.map((r) => withGeneratedId(r))
 }
 
 export const useProblematicasStore = defineStore('problematicas', () => {
-  const reportes = ref<ReporteProblematica[]>(cloneReportes())
+  const reportes = ref<ReporteProblematica[]>([])
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+  const initialized = ref(false)
 
   const total = computed(() => reportes.value.length)
 
@@ -34,25 +45,76 @@ export const useProblematicasStore = defineStore('problematicas', () => {
     return reportes.value.find((r) => r.id === id) ?? null
   }
 
-  function actualizarReporte(
+  async function cargarReportes(): Promise<void> {
+    if (initialized.value && !error.value) return
+
+    loading.value = true
+    error.value = null
+
+    try {
+      if (isSupabaseConfigured) {
+        reportes.value = await fetchReportesApi()
+      } else {
+        reportes.value = cloneReportes()
+      }
+      initialized.value = true
+    } catch (err) {
+      error.value =
+        err instanceof Error ? err.message : 'No se pudieron cargar los reportes.'
+      if (reportes.value.length === 0) {
+        reportes.value = cloneReportes()
+      }
+    } finally {
+      loading.value = false
+    }
+  }
+
+  async function actualizarReporte(
     id: string,
     patch: Partial<Pick<ReporteProblematica, 'titulo' | 'estado' | 'prioridad'>>,
-  ): boolean {
+  ): Promise<boolean> {
     const idx = reportes.value.findIndex((r) => r.id === id)
     if (idx === -1) return false
 
-    reportes.value[idx] = {
-      ...reportes.value[idx],
-      ...patch,
+    const prev = reportes.value[idx]
+    reportes.value[idx] = { ...prev, ...patch }
+
+    if (isSupabaseConfigured) {
+      try {
+        const ok = await updateReporteApi(id, patch)
+        if (!ok) {
+          reportes.value[idx] = prev
+          return false
+        }
+      } catch {
+        reportes.value[idx] = prev
+        return false
+      }
     }
 
     return true
   }
 
-  function eliminarReporte(id: string): boolean {
-    const prevLength = reportes.value.length
+  async function eliminarReporte(id: string): Promise<boolean> {
+    const prev = reportes.value
     reportes.value = reportes.value.filter((r) => r.id !== id)
-    return reportes.value.length !== prevLength
+    const removed = reportes.value.length !== prev.length
+    if (!removed) return false
+
+    if (isSupabaseConfigured) {
+      try {
+        const ok = await deleteReporteApi(id)
+        if (!ok) {
+          reportes.value = prev
+          return false
+        }
+      } catch {
+        reportes.value = prev
+        return false
+      }
+    }
+
+    return true
   }
 
   function reportesPorCategoria(categoria: CategoriaProblematica): ReporteProblematica[] {
@@ -162,13 +224,21 @@ export const useProblematicasStore = defineStore('problematicas', () => {
       ).length,
   )
 
-  /** Reinicia datos al mock original (sin backend). */
-  function reiniciarMock() {
+  /** Restaura el dataset mock en Supabase (o en memoria si no hay backend). */
+  async function reiniciarMock(): Promise<void> {
+    if (isSupabaseConfigured) {
+      await replaceAllReportes(MOCK_REPORTES_PROBLEMATICAS)
+      reportes.value = await fetchReportesApi()
+      return
+    }
     reportes.value = cloneReportes()
   }
 
   return {
     reportes,
+    loading,
+    error,
+    initialized,
     total,
     categoriasPresentes,
     localidadesPresentes,
@@ -178,6 +248,7 @@ export const useProblematicasStore = defineStore('problematicas', () => {
     resumenPorLocalidad,
     reportesActivos,
     reportesUrgentes,
+    cargarReportes,
     reportePorId,
     reportesPorCategoria,
     reportesPorLocalidad,

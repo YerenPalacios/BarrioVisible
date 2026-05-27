@@ -35,7 +35,7 @@
           <span
             class="rounded-full bg-brand-surface px-2.5 py-0.5 text-xs font-medium text-brand-navy ring-1 ring-brand-navy/10"
           >
-            {{ CATEGORIA_LABELS[r.categoria] }}
+            {{ CATEGORIA_LABELS[r.categoria] || r.categoria }}
           </span>
           <span
             class="rounded-full px-2.5 py-0.5 text-xs font-medium"

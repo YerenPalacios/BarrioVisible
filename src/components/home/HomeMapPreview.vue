@@ -103,7 +103,7 @@ function buildMap() {
         <strong style="color:#103058">${escapeHtml(r.titulo)}</strong><br/>
         <span style="color:#64748b">${escapeHtml(r.localidad)}</span><br/><br/>
         ${escapeHtml(short)}<br/><br/>
-        <a href="/reportes/${encodeURIComponent(r.id)}" style="color:#1b99a7;font-weight:600">Ver ficha →</a>
+        <a href="/BarrioVisible/reportes/${encodeURIComponent(r.id)}" style="color:#1b99a7;font-weight:600">Ver ficha →</a>
       </div>`,
     )
     markers.push(m)

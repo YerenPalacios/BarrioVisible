@@ -1,13 +1,4 @@
-export type CategoriaProblematica =
-  | 'hueco_peligroso'
-  | 'inseguridad_estacion'
-  | 'semaforo_danado'
-  | 'ruido_nocturno'
-  | 'basura_acumulada'
-  | 'alumbrado_publico'
-  | 'accesibilidad'
-  | 'alcantarillado'
-  | 'anden_obstruido'
+export type CategoriaProblematica = string
 
 export type EstadoReporte =
   | 'abierto'

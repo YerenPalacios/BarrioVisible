@@ -14,7 +14,7 @@ function normalizeE164(raw: string | undefined): string | null {
  * Configura `VITE_WHATSAPP_REPORT_E164` en `.env`; si no existe, se usa un número demo solo para maquetas locales.
  */
 export const WHATSAPP_REPORT_E164 =
-  normalizeE164(import.meta.env.VITE_WHATSAPP_REPORT_E164) ?? '573001234567'
+  normalizeE164(import.meta.env.VITE_WHATSAPP_REPORT_E164) ?? '+15556605322'
 
 export function buildWhatsappReportUrl(text = WHATSAPP_REPORT_DEFAULT_TEXT): string {
   const params = new URLSearchParams({ text })

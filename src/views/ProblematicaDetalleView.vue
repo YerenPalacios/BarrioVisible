@@ -25,7 +25,7 @@
           <span
             class="inline-flex rounded-full border border-brand-navy/10 bg-brand-surface px-3 py-1 text-xs font-medium text-brand-navy"
           >
-            {{ CATEGORIA_LABELS[reporte.categoria] }}
+            {{ CATEGORIA_LABELS[reporte.categoria] || reporte.categoria }}
           </span>
           <span
             class="inline-flex rounded-full px-3 py-1 text-xs font-medium"

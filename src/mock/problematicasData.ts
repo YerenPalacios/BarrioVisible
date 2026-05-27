@@ -4,9 +4,8 @@ const img = (id: string, n: number) =>
   `https://picsum.photos/seed/bv-${id}-${n}/720/480`
 
 /** Mínimo 17 reportes mock con contexto de Bogotá (calles, TM, localidades reales). */
-export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
+export const MOCK_REPORTES_PROBLEMATICAS: Omit<ReporteProblematica, 'id'>[] = [
   {
-    id: 'rep-001',
     titulo: 'Hueco en carril mixto frente al CAI de la Caracas con 59',
     descripcion:
       'Lleva más de tres semanas. Los buses del SITP y las motos esquivan a último minuto; anoche vi un carro levantar llanta. Está justo donde se forma taco saliendo del portal de la Caracas.',
@@ -41,7 +40,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-002',
     titulo: 'Punto ciego entre estación Calle 85 y el cajero del lado occidental',
     descripcion:
       'Salgo del TM a las 9:30 pm varias veces a la semana. Hay un tramo sin comercio abierto, poca luz y gente que se queda “esperando bus” pero no sube a ninguno. La semana pasada corrieron a una pareja.',
@@ -70,7 +68,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-003',
     titulo: 'Semáforo de Av. NQS con Av. El Dorado lleva días en intermitente “parpadeo amarillo"',
     descripcion:
       'El cruce es un infierno en la mañana: salen carros del aeropuerto, entran a la NQS y nadie respeta turno. Los policías de tránsito no alcanzan a cubrir todos los días.',
@@ -105,7 +102,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-004',
     titulo: 'Rumba en terraza en carrera 4 con 26: música hasta las 3 am entre semana',
     descripcion:
       'Soy del edificio del frente, tengo niño pequeño. Es reincidente: sube el bajo y gritos. El portero del otro edificio dice que “es un Airbnb”.',
@@ -134,7 +130,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-005',
     titulo: 'Esquina de la 53 con Caracas: basureros volcados y perros callejeros revolviendo',
     descripcion:
       'Hay sacos negros desde el viernes, huele horrible y se están corriendo los líquidos hacia el canal. Es frente a una salida del TM Marly.',
@@ -163,7 +158,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-006',
     titulo: 'Poste de alumbrado caído sobre andén en Carrera 7 con 63 (lado Parque de la 93)',
     descripcion:
       'Lo amarraron con cinta precaria pero sigue inclinado; los cables quedan a la altura de la cara de un niño. Mucho turista camina por ahí.',
@@ -192,7 +186,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-007',
     titulo: 'Rampas del andén de estación Banderas: grietas y desnivel con la acera',
     descripcion:
       'Mi papá va en silla de ruedas y se atasca en el borde. Además cuando llueve queda charco y patina el metal de la rampa.',
@@ -221,7 +214,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-008',
     titulo: 'Carrera 24 I con calle 6 sur sur: mal olor y rebalse en temporada de lluvia',
     descripcion:
       'Huele a cloaca desde hace rato. Los vecinos dicen que el pozo tapado “revienta” cuando llueve fuerte. Ya hubo caso de niños con infección (comentario de salón comunal, no verificado).',
@@ -256,7 +248,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-009',
     titulo: 'Vendedores informales bloquean mitad del andén salida sur Portal del Sur',
     descripcion:
       'Hay toldos fijos y mesas; el corredor queda de 60 cm. Con lluvia la gente empuja y casi cae a la calle. Es diario de 5 a 8 pm.',
@@ -285,7 +276,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-010',
     titulo: 'Hueco profundo en transversal 54 con Av. Boyacá (lado suba a rotonda)',
     descripcion:
       'Ya taparon una vez pero volvió a abrirse. Los buses articulados pegan fuerte y suelta pedazos de asfalto. Peligroso para motos que se cuelan por la derecha.',
@@ -307,7 +297,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     comentarios: [],
   },
   {
-    id: 'rep-011',
     titulo: 'Robos “al salir” de estación Patio Bonito en horario nocturno',
     descripcion:
       'Varias personas del barrio han contado lo mismo: los esperan entre el paso a desnivel y los paraderos. Yo no quiero grabar con el celular por miedo, pero sí quiero más presencia.',
@@ -336,7 +325,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-012',
     titulo: 'Semáforo peatonal de la 11 con 69 frente al parque no cambia: peatones cruzan “a la mala"',
     descripcion:
       'El botón suena pero la luz peatonal nunca da verde; los carros aceleran porque la NQS está despejada. Es cerca del puente de la 11.',
@@ -365,7 +353,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-013',
     titulo: 'Construcción en Teusaquillo: vibraciones y ruido fuera del horario permitido',
     descripcion:
       'Están vaciando escombros a las 11 pm y los martillos neumáticos suenan desde las 6 am sábado. El vigilante dice que “mandaron apurar obra”.',
@@ -394,7 +381,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-014',
     titulo: 'Carrera 68 con calle 53: “isla” de escombros y plásticos arrastrados del canal',
     descripcion:
       'Después del aguacero quedó montado un berrenchín de basura en el separador. Parece mezcla de obra y residuos domésticos. Huele a quemado los fines de semana.',
@@ -423,7 +409,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-015',
     titulo: 'Luminarias apagadas en el canalón del parque El Tunal (tramo sur)',
     descripcion:
       'Entreno trotando y desde hace meses ese tramo está oscuro. Hay gente tomando y no se ve el borde del camino.',
@@ -445,7 +430,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     comentarios: [],
   },
   {
-    id: 'rep-016',
     titulo: 'Andén de estación San Victorino: comercio fijo reduce ancho a menos de un metro',
     descripcion:
       'Es el corredor que conecta con la Séptima. Con mercancía en el piso no pasa una silla de ruedas ni un adulto mayor con andador.',
@@ -474,7 +458,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-017',
     titulo: 'Hueco con agua estancada frente a entrada de Ciudad Bolívar sector Lucero',
     descripcion:
       'Cada lluvia se hace laguna y los buses chapotean y mojan a los peatones. Ya van dos caídas de moto que vi con mis ojos.',
@@ -503,7 +486,6 @@ export const MOCK_REPORTES_PROBLEMATICAS: ReporteProblematica[] = [
     ],
   },
   {
-    id: 'rep-018',
     titulo: 'Mal estado de andenes en Av. Jiménez entre carrera 8 y 10: adoquines sueltos',
     descripcion:
       'Turistas con maletas se traban; una señora se torció el tobillo el domingo. Además el desnivel no está señalizado para bastón.',

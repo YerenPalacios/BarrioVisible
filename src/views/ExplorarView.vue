@@ -165,7 +165,7 @@
                 :key="c"
                 :value="c"
               >
-                {{ CATEGORIA_LABELS[c] }}
+                {{ CATEGORIA_LABELS[c] || c }}
               </option>
             </select>
           </label>
@@ -238,7 +238,7 @@
             <span
               class="rounded-full border border-brand-navy/10 bg-slate-100 px-2 py-0.5 text-xs text-brand-navy"
             >
-              {{ CATEGORIA_LABELS[r.categoria] }}
+              {{ CATEGORIA_LABELS[r.categoria] || r.categoria }}
             </span>
             <span
               class="rounded-full px-2 py-0.5 text-xs"

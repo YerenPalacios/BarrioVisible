@@ -202,7 +202,7 @@
             class="flex items-center justify-between gap-3 py-2 first:pt-0"
           >
             <span class="text-sm text-slate-700">
-              {{ CATEGORIA_LABELS[row.categoria] }}
+              {{ CATEGORIA_LABELS[row.categoria] || row.categoria }}
             </span>
             <span class="text-sm font-semibold tabular-nums text-slate-900">
               {{ row.count }}
@@ -519,7 +519,7 @@ watch(
   { immediate: true },
 )
 
-function guardarFila(id: string) {
+async function guardarFila(id: string) {
   const draft = drafts[id]
   if (!draft) return
   const titulo = draft.titulo.trim()
@@ -528,7 +528,7 @@ function guardarFila(id: string) {
     return
   }
   isSaving[id] = true
-  const ok = problematicas.actualizarReporte(id, {
+  const ok = await problematicas.actualizarReporte(id, {
     titulo,
     estado: draft.estado,
     prioridad: draft.prioridad,
@@ -542,14 +542,14 @@ function guardarFila(id: string) {
   syncDrafts()
 }
 
-function confirmarEliminar(id: string) {
+async function confirmarEliminar(id: string) {
   const reporte = problematicas.reportePorId(id)
   if (!reporte) return
   const ok = window.confirm(
     `¿Eliminar el reporte "${reporte.titulo}"? Esta acción no se puede deshacer.`,
   )
   if (!ok) return
-  const removed = problematicas.eliminarReporte(id)
+  const removed = await problematicas.eliminarReporte(id)
   if (!removed) {
     showToast('error', 'No se pudo eliminar', 'No se pudo eliminar el reporte.')
     return
@@ -585,9 +585,9 @@ function formatFechaCorta(iso: string): string {
   }).format(new Date(iso))
 }
 
-function onReiniciarMock() {
+async function onReiniciarMock() {
   if (window.confirm('¿Restaurar el dataset mock original de reportes?')) {
-    problematicas.reiniciarMock()
+    await problematicas.reiniciarMock()
   }
 }
 </script>

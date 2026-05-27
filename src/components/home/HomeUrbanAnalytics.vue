@@ -26,7 +26,7 @@
             class="flex items-center gap-3"
           >
             <span class="w-[11.5rem] shrink-0 truncate text-xs font-medium text-slate-700 sm:text-sm">
-              {{ CATEGORIA_LABELS[row.categoria] }}
+              {{ CATEGORIA_LABELS[row.categoria] || row.categoria }}
             </span>
             <div class="h-2.5 min-w-0 flex-1 overflow-hidden rounded-full bg-slate-100">
               <div

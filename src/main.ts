@@ -5,6 +5,7 @@ import faviconUrl from './assets/logo.png'
 import App from './App.vue'
 import router from './router'
 import { useAuthStore } from './stores/auth'
+import { useProblematicasStore } from './stores/problematicas'
 import './style.css'
 
 function setFavicon(href: string) {
@@ -20,10 +21,15 @@ function setFavicon(href: string) {
 
 setFavicon(faviconUrl)
 
-const app = createApp(App)
-const pinia = createPinia()
+async function bootstrap() {
+  const app = createApp(App)
+  const pinia = createPinia()
 
-app.use(pinia)
-useAuthStore().restoreFromStorage()
-app.use(router)
-app.mount('#app')
+  app.use(pinia)
+  useAuthStore().restoreFromStorage()
+  await useProblematicasStore().cargarReportes()
+  app.use(router)
+  app.mount('#app')
+}
+
+void bootstrap()
